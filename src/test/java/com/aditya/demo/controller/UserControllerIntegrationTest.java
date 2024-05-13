@@ -6,13 +6,13 @@ import com.aditya.demo.dto.UserDto;
 import com.aditya.demo.dto.UsersDto;
 import com.aditya.demo.request.UserRequest;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -45,7 +45,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void test_1_should_save_user() {
         //Given
-        String url = String.format(USER_URL, port);
+        String url = USER_URL.formatted(port);
         UserRequest createRequest = givenUserRequest();
         HttpEntity<UserRequest> request = HttpHelper.getHttpEntity(createRequest);
         //When
@@ -61,7 +61,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void test_2_should_find_user_by_id() {
         //Given
-        String url = String.format(USER_ID_URL, port, ID);
+        String url = USER_ID_URL.formatted(port, ID);
         HttpEntity<String> request = HttpHelper.getHttpEntity();
         //When
         ResponseEntity<UserDto> response = testRestTemplate.exchange(url, HttpMethod.GET, request, UserDto.class);
@@ -76,7 +76,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void test_3_should_find_all_users() {
         //Given
-        String url = String.format(USER_URL, port);
+        String url = USER_URL.formatted(port);
         HttpEntity<String> request = HttpHelper.getHttpEntity();
         //When
         ResponseEntity<UsersDto> response = testRestTemplate.exchange(url, HttpMethod.GET, request, UsersDto.class);
@@ -93,7 +93,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void test_4_should_update_user() {
         //Given
-        String url = String.format(USER_ID_URL, port, ID);
+        String url = USER_ID_URL.formatted(port, ID);
         UserRequest userRequest = givenUserRequest();
         HttpEntity<UserRequest> request = HttpHelper.getHttpEntity(userRequest);
         //When
@@ -109,7 +109,7 @@ public class UserControllerIntegrationTest {
     @Test
     public void test_5_should_delete_user_by_id() {
         //Given
-        String url = String.format(USER_ID_URL, port, ID);
+        String url = USER_ID_URL.formatted(port, ID);
         HttpEntity<String> request = HttpHelper.getHttpEntity();
         //When
         ResponseEntity<UserDto> response = testRestTemplate.exchange(url, HttpMethod.DELETE, request, UserDto.class);
